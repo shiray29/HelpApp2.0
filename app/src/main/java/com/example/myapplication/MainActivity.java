@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,10 +22,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (v==btnLogin) {
-            // to do - new activity - log in
+            Intent intent_login = new Intent(this, LoginActivity.class);
+            startActivity(intent_login);
         }
         if (v==btnRegister) {
-            // to do - new activity - Register
+            Intent intent_register = new Intent(this, RegisterActivity.class);
+            startActivity(intent_register);
         }
 
     }
