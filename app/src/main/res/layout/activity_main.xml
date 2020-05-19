@@ -6,23 +6,64 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <!-- sign in-->
+
     <Button
         android:id="@+id/btn_register"
         android:layout_width="200dp"
         android:layout_height="100dp"
-        android:layout_centerInParent="true"
-        android:layout_margin="50dp"
-        android:text="Register" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="106dp"
+        android:layout_marginEnd="105dp"
+        android:layout_marginBottom="142dp"
+        android:text="הירשם - משתמש חדש " />
 
-    <!-- sign in-->
     <Button
         android:id="@+id/btn_login"
         style="@android:style/Widget.Button"
         android:layout_width="200dp"
         android:layout_height="100dp"
         android:layout_above="@+id/btn_register"
-        android:layout_centerInParent="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="103dp"
+        android:layout_marginEnd="108dp"
+        android:layout_marginBottom="62dp"
         android:backgroundTint="#DDB0B0"
-        android:text="Log In" />
+        android:text="התחבר - משתמש קיים " />
+
+    <TextView
+        android:id="@+id/textview_welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="98dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="98dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="97dp"
+        android:layout_marginBottom="582dp"
+        android:maxHeight="200dp"
+        android:text="WeHere"
+        android:textSize="60dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="253dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="77dp"
+        android:layout_marginTop="173dp"
+        android:layout_marginEnd="81dp"
+        android:layout_marginBottom="510dp"
+        android:text="ברוכים הבאים"
+        android:textSize="40dp" />
 
 </RelativeLayout>
