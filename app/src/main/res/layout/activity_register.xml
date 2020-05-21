@@ -17,10 +17,10 @@
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.093" />
+        app:layout_constraintVertical_bias="0.04" />
 
     <EditText
-        android:id="@+id/email_btn"
+        android:id="@+id/edittext_email"
         android:layout_width="294dp"
         android:layout_height="55dp"
         android:ems="15"
@@ -28,13 +28,13 @@
         android:text="כתובת דואר אלקטרוני (אימייל)"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.461"
+        app:layout_constraintHorizontal_bias="0.529"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.69" />
+        app:layout_constraintVertical_bias="0.605" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/edittext_enterpassword"
         android:layout_width="299dp"
         android:layout_height="57dp"
         android:ems="10"
@@ -43,10 +43,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.789" />
+        app:layout_constraintVertical_bias="0.703" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textview_insertprofile"
         android:layout_width="169dp"
         android:layout_height="69dp"
         android:text="הכנס תמונת פרופיל"
@@ -56,10 +56,10 @@
         app:layout_constraintHorizontal_bias="0.739"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.216" />
+        app:layout_constraintVertical_bias="0.148" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/edittext_fullname"
         android:layout_width="293dp"
         android:layout_height="47dp"
         android:ems="10"
@@ -67,13 +67,12 @@
         android:text="שם מלא"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.474"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.331" />
+        app:layout_constraintVertical_bias="0.255" />
 
     <EditText
-        android:id="@+id/editText5"
+        android:id="@+id/edittext_adress"
         android:layout_width="293dp"
         android:layout_height="47dp"
         android:ems="10"
@@ -81,13 +80,13 @@
         android:text="כתובת מלאה"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.474"
+        app:layout_constraintHorizontal_bias="0.525"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.586" />
+        app:layout_constraintVertical_bias="0.513" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/edittext_phonenumber"
         android:layout_width="290dp"
         android:layout_height="49dp"
         android:ems="10"
@@ -95,13 +94,13 @@
         android:text="מספר טלפון"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.479"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.417" />
+        app:layout_constraintVertical_bias="0.335" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/edittext_idnumber"
         android:layout_width="290dp"
         android:layout_height="49dp"
         android:ems="10"
@@ -109,31 +108,54 @@
         android:text="מספר תעודת זהות"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.419" />
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/checkbox_volunteer"
         android:layout_width="131dp"
         android:layout_height="57dp"
         android:text="מתנדב"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.207"
+        app:layout_constraintHorizontal_bias="0.221"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.888" />
+        app:layout_constraintVertical_bias="0.804" />
 
     <CheckBox
-        android:id="@+id/checkBox2"
+        android:id="@+id/checkbox_oldie"
         android:layout_width="131dp"
         android:layout_height="57dp"
         android:text="מבוגר"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.803"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.804" />
+
+    <TextView
+        android:id="@+id/textview_insertidphoto"
+        android:layout_width="136dp"
+        android:layout_height="79dp"
+        android:text="הכנס צלום תעודת זהות"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.888" />
+        app:layout_constraintVertical_bias="0.941" />
+
+    <Button
+        android:id="@+id/btn_confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="אישור"
+        tools:layout_editor_absoluteX="9dp"
+        tools:layout_editor_absoluteY="670dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
