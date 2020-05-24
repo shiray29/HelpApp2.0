@@ -24,8 +24,8 @@
         android:layout_width="275dp"
         android:layout_height="73dp"
         android:ems="10"
+        android:hint="דואר אלקטרוני"
         android:inputType="textPersonName"
-        android:text="דואר אלקטרוני"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,23 +37,23 @@
         android:layout_width="275dp"
         android:layout_height="80dp"
         android:ems="10"
+        android:hint="סיסמא"
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.706" />
+        app:layout_constraintVertical_bias="0.632" />
 
-    <TextView
-        android:id="@+id/textview_logingpass"
-        android:layout_width="245dp"
-        android:layout_height="40dp"
-        android:text="הזן סיסמא למטה"
-        android:textSize="24sp"
+    <Button
+        android:id="@+id/btn_loginconfirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="אישור"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.59"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.587" />
+        app:layout_constraintVertical_bias="0.863" />
 </androidx.constraintlayout.widget.ConstraintLayout>
