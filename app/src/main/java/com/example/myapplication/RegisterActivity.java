@@ -41,7 +41,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         String email = edittextEmail.getText().toString().trim();
         String password = edittextEnterpassword.getText().toString().trim();
 
-        profile = new Profile(String fullname , String cellnum , String idnum , String adress , String email , String password , boolean isOldie , boolean isVolunteer, false)
+        profile = new Profile(fullname ,cellnum ,idnum , adress, email, password, false);
         if (btnConfirm == v) {
             if ((checkboxOldie.isChecked() && checkboxVolunteer.isChecked()) || (!checkboxOldie.isChecked() && !checkboxVolunteer.isChecked()))
             {

@@ -1,14 +1,16 @@
 package com.example.myapplication;
 
 public class Profile {
-    private String name, adress, id, cellnum;
+    private String name, adress, id, cellnum, password, email;
     private boolean isOld;
 
-    public Profile(String name, String adress, String id, String cellnum, boolean isOld) {
+    public Profile(String name, String adress, String id, String cellnum, String email, String passsword, boolean isOld) {
         this.name = name;
         this.adress = adress;
         this.id = id;
         this.cellnum = cellnum;
+        this.password= passsword;
+        this.email= email;
         this.isOld = isOld;
     }
 
