@@ -126,9 +126,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         String adress = edittextAdress.getText().toString().trim();
         String email = edittextEmail.getText().toString().trim();
         String password = edittextEnterpassword.getText().toString().trim();
-        //SET!
-        String id= databaseReference.push().getKey();
-        databaseReference.child(FirebaseAuth.)
+        public String getFullnane() {return fullname};
+        public void setFullname(String fullname){this.edittextFullname = edittextFullname;}
+
+        public void setCellnum(String cellnum){this.edittextCellnum= edittextCellnum;}
+
+        public void setIdnum(String idnum){this.edittextIdnum= edittextIdnum;}
+
+
         if (textViewProfile==v) {
             flag= false;
             openFile();
@@ -154,7 +159,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 profile.setOld(false);
 
             }
-
+            String id= databaseReference.push().getKey();
+            databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(profile);
 
         }
 
