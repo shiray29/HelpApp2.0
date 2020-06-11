@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -21,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
@@ -35,6 +37,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private DatabaseReference databaseReference;
     private ProgressBar progressBar;
     private Uri imageUri;
+    private TextView textViewProfile, textViewId;
+    private  boolean flag;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +58,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         storageReference = FirebaseStorage.getInstance().getReference("users");
         databaseReference= FirebaseDatabase.getInstance().getReference("users");
         profile= new Profile();
+        textViewId= findViewById(R.id.textview_insertidphoto);
+        textViewProfile= findViewById(R.id.textview_insertprofile);
     }
     private void openFile(){
         Intent intent= new Intent ();
@@ -86,13 +93,24 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                 }
                             },500);
                             progressBar.setProgress(0);
-                            profile.setUri(uri.toString());
-                            String id= databaseReference.push().getKey();
-                            databaseReference.child(FirebaseAuth.)
+                            if(flag){
+                                profile.setUriId(uri.toString());
+                            }
+                            else {
+                                profile.setUriProfile(uri.toString());
+                            }
+
+
                         }
-                    })
+                    });
                 }
-            })
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                    double progress=(100*taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount());
+                    progressBar.setProgress((int )progress);
+                }
+            });
         }
     }
     private String getFileExtention(Uri uri){
@@ -109,6 +127,18 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         String email = edittextEmail.getText().toString().trim();
         String password = edittextEnterpassword.getText().toString().trim();
         //SET!
+        String id= databaseReference.push().getKey();
+        databaseReference.child(FirebaseAuth.)
+        if (textViewProfile==v) {
+            flag= false;
+            openFile();
+            upload();
+        }
+        if (textViewId==v){
+            flag=true;
+            openFile();
+            upload();
+        }
         if (btnConfirm == v) {
             if ((checkboxOldie.isChecked() && checkboxVolunteer.isChecked()) || (!checkboxOldie.isChecked() && !checkboxVolunteer.isChecked()))
             {

@@ -1,7 +1,7 @@
 package com.example.myapplication;
 
 public class Profile {
-    private String name, adress, id, cellnum, password, email, uri;
+    private String name, adress, id, cellnum, password, email, uriId, uriProfile;
     private boolean isOld;
 
     public Profile(){
@@ -15,7 +15,8 @@ public class Profile {
         this.cellnum = cellnum;
         this.password= passsword;
         this.email= email;
-        this.uri= uri;
+        this.uriId= uriId;
+        this.uriProfile= uriProfile;
         this.isOld = isOld;
     }
 
@@ -59,5 +60,7 @@ public class Profile {
         isOld = old;
     }
 
-    public void setUri(String uri){this.uri= uri;}
+    public void setUriId(String uriId){this.uriId= uriId;}
+
+    public void setUriProfile(String uriProfile){this.uriProfile=uriProfile;}
 }
