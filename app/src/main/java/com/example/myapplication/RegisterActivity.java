@@ -1,20 +1,40 @@
 package com.example.myapplication;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentResolver;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
-public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
+
+public class RegisterActivity extends AppCompatActivity implements View.OnClickListener, ActivityResult {
 
     private EditText edittextFullname, edittextCellnum, edittextIdnum, edittextAdress, edittextEmail, edittextEnterpassword;
     private CheckBox checkboxOldie, checkboxVolunteer;
     private Button btnConfirm;
     private Profile profile;
+    private StorageReference storageReference;
+    private DatabaseReference databaseReference;
+    private ProgressBar progressBar;
+    private Uri imageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +49,57 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         checkboxOldie = findViewById(R.id.checkbox_oldie);
         checkboxVolunteer = findViewById(R.id.checkbox_volunteer);
         btnConfirm = findViewById(R.id.btn_confirm);
+        progressBar = findViewById(R.id.progress_bar);
+        storageReference = FirebaseStorage.getInstance().getReference("users");
+        databaseReference= FirebaseDatabase.getInstance().getReference("users");
+        profile= new Profile();
     }
+    private void openFile(){
+        Intent intent= new Intent ();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent,1);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        if ((requestCode==1)&&(resultCode==RESULT_OK)&&(data!=null)&&(data.getData()!=null)){
+            imageUri= data.getData();
 
-
+        }
+    }
+    private void upload(){
+        if (imageUri!= null){
+            String temp= System.currentTimeMillis()+"."+getFileExtention(imageUri);
+            final StorageReference fileReference= storageReference.child(temp);
+            fileReference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            Handler handler= new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    progressBar.setProgress(0);
+                                }
+                            },500);
+                            progressBar.setProgress(0);
+                            profile.setUri(uri.toString());
+                            String id= databaseReference.push().getKey();
+                            databaseReference.child(FirebaseAuth.)
+                        }
+                    })
+                }
+            })
+        }
+    }
+    private String getFileExtention(Uri uri){
+        ContentResolver cr= getContentResolver();
+        MimeTypeMap mime= MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cr.getType(uri));
+    }
     @Override
     public void onClick(View v) {
         String fullname = edittextFullname.getText().toString().trim();
@@ -40,8 +108,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         String adress = edittextAdress.getText().toString().trim();
         String email = edittextEmail.getText().toString().trim();
         String password = edittextEnterpassword.getText().toString().trim();
-
-        profile = new Profile(fullname ,cellnum ,idnum , adress, email, password, false);
+        //SET!
         if (btnConfirm == v) {
             if ((checkboxOldie.isChecked() && checkboxVolunteer.isChecked()) || (!checkboxOldie.isChecked() && !checkboxVolunteer.isChecked()))
             {

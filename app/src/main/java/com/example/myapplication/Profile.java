@@ -1,16 +1,21 @@
 package com.example.myapplication;
 
 public class Profile {
-    private String name, adress, id, cellnum, password, email;
+    private String name, adress, id, cellnum, password, email, uri;
     private boolean isOld;
 
-    public Profile(String name, String adress, String id, String cellnum, String email, String passsword, boolean isOld) {
+    public Profile(){
+
+    }
+
+    public Profile(String name, String adress, String id, String cellnum, String email, String passsword,String uri, boolean isOld) {
         this.name = name;
         this.adress = adress;
         this.id = id;
         this.cellnum = cellnum;
         this.password= passsword;
         this.email= email;
+        this.uri= uri;
         this.isOld = isOld;
     }
 
@@ -53,4 +58,6 @@ public class Profile {
     public void setOld(boolean old) {
         isOld = old;
     }
+
+    public void setUri(String uri){this.uri= uri;}
 }
