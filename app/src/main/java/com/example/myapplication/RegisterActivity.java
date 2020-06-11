@@ -126,12 +126,18 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         String adress = edittextAdress.getText().toString().trim();
         String email = edittextEmail.getText().toString().trim();
         String password = edittextEnterpassword.getText().toString().trim();
-        public String getFullnane() {return fullname};
+
         public void setFullname(String fullname){this.edittextFullname = edittextFullname;}
 
         public void setCellnum(String cellnum){this.edittextCellnum= edittextCellnum;}
 
         public void setIdnum(String idnum){this.edittextIdnum= edittextIdnum;}
+
+        public void setAdress(String adress){this.edittextAdress= edittextAdress;}
+
+        public void setEmail(String email){this.edittextEmail= edittextEmail;}
+
+        public void setPassword(String password){this.edittextEnterpassword= edittextEnterpassword;}
 
 
         if (textViewProfile==v) {
