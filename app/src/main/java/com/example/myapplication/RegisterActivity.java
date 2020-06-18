@@ -3,7 +3,6 @@ package com.example.myapplication;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Instrumentation;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
@@ -28,7 +27,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
-public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
+public class RegisterActivity extends AppCompatActivity implements View.OnClickListener, ActivityResult {
 
     private EditText edittextFullname, edittextCellnum, edittextIdnum, edittextAdress, edittextEmail, edittextEnterpassword;
     private CheckBox checkboxOldie, checkboxVolunteer;
@@ -127,9 +126,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         String adress = edittextAdress.getText().toString().trim();
         String email = edittextEmail.getText().toString().trim();
         String password = edittextEnterpassword.getText().toString().trim();
+        public String getFullnane() {return fullname};
+        public void setFullname(String fullname){this.edittextFullname = edittextFullname;}
 
-        profile.setName(fullname);
-        //TODO - set
+        public void setCellnum(String cellnum){this.edittextCellnum= edittextCellnum;}
+
+        public void setIdnum(String idnum){this.edittextIdnum= edittextIdnum;}
 
 
         if (textViewProfile==v) {
@@ -159,8 +161,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             }
             String id= databaseReference.push().getKey();
             databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(profile);
-            startActivity(new Intent(getApplicationContext(), profile.isOld()==true?ChooseiconsActivity.class:Search.class));
-            finish();
 
         }
 
