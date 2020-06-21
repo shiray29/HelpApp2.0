@@ -63,4 +63,19 @@ public class Profile {
     public void setUriId(String uriId){this.uriId= uriId;}
 
     public void setUriProfile(String uriProfile){this.uriProfile=uriProfile;}
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) { this.email= email; }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) { this.password= [password]; }
+
+
+
 }
