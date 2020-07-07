@@ -55,20 +55,20 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         checkboxVolunteer = findViewById(R.id.checkbox_volunteer);
         btnConfirm = findViewById(R.id.btn_confirm);
         progressBar = findViewById(R.id.progress_bar);
-        storageReference = FirebaseStorage.getInstance().getReference("users");
-        databaseReference= FirebaseDatabase.getInstance().getReference("users");
+        storageReference = FirebaseStorage.getInstance().getReference("users"); // this line defines reference to Firebase Storage in order to store jpg files
+        databaseReference= FirebaseDatabase.getInstance().getReference("users"); // this line defines reference to Firebase Database in order to store users data
         profile= new Profile();
         textViewId= findViewById(R.id.textview_insertidphoto);
         textViewProfile= findViewById(R.id.textview_insertprofile);
     }
-    private void openFile(){
+    private void openFile(){ //this function opens the cellphone's gallery using intents
         Intent intent= new Intent ();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent,1);
     }
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){ //this function re-defines the imageUri
         super.onActivityResult(requestCode, resultCode, data);
         if ((requestCode==1)&&(resultCode==RESULT_OK)&&(data!=null)&&(data.getData()!=null)){
             imageUri= data.getData();
@@ -77,8 +77,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
     private void upload(){
         if (imageUri!= null){
-            String temp= System.currentTimeMillis()+"."+getFileExtention(imageUri);
-            final StorageReference fileReference= storageReference.child(temp);
+            String temp= System.currentTimeMillis()+"."+getFileExtention(imageUri); //defines a file name to the uploaded image
+            final StorageReference fileReference= storageReference.child(temp); // inserts the new image to database storage
             fileReference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -88,12 +88,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             Handler handler= new Handler();
                             handler.postDelayed(new Runnable() {
                                 @Override
-                                public void run() {
+                                public void run() { // presents a progress bar of the download time
                                     progressBar.setProgress(0);
                                 }
                             },500);
                             progressBar.setProgress(0);
-                            if(flag){
+                            if(flag){ // inserts the information to the suitable variable using the flag (flag is true if it's ID image)
                                 profile.setUriId(uri.toString());
                             }
                             else {
@@ -146,7 +146,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             upload();
         }
         if (btnConfirm == v) {
-            if ((checkboxOldie.isChecked() && checkboxVolunteer.isChecked()) || (!checkboxOldie.isChecked() && !checkboxVolunteer.isChecked()))
+            if ((checkboxOldie.isChecked() && checkboxVolunteer.isChecked()) || (!checkboxOldie.isChecked() && !checkboxVolunteer.isChecked())) // checks whether the user chose 2 or 0 options
             {
                 Toast.makeText(this,"יש לסמן רק אחת מהאפשרויות - מתנדב או קשיש", Toast.LENGTH_SHORT).show();
                 checkboxOldie.setChecked(false);
@@ -161,8 +161,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
             }
             String id= databaseReference.push().getKey();
-            databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(profile);
-            startActivity(new Intent(getApplicationContext(), profile.isOld()==true?ChooseiconsActivity.class:Search.class));
+            databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(profile); // creates a new user in Firebase Database
+            startActivity(new Intent(getApplicationContext(), profile.isOld()==true?ChooseiconsActivity.class:Search.class)); // starts the suitable activity according to isOld
 
         }
 

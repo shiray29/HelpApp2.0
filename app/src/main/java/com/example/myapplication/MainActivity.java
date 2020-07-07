@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View v) { // this function starts the selected activity according to the clicked button using intents
         if (v==btnLogin) {
             Intent intent_login = new Intent(this, LoginActivity.class);
             startActivity(intent_login);

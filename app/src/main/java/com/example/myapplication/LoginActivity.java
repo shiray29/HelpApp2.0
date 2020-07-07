@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         edittextLoginemail = findViewById(R.id.edittext_loginemail);
         edittextLoginpassword = findViewById(R.id.edittext_logingpassword);
         btnLoginconfirm.setOnClickListener(this);
-        databaseReference = FirebaseDatabase.getInstance().getReference("users");
+        databaseReference = FirebaseDatabase.getInstance().getReference("users"); // this line defines reference to Firebase Database, in order to authenticate users
 
 
 
@@ -65,18 +65,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
+            public void onComplete(@NonNull Task<AuthResult> task) { // this line sends to Firebase Auth the email and password in order to log in
                 if(task.isSuccessful()){
-                    databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+                    databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() //this function connects the user's data using the user's Uid
+                    {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             startActivity(new Intent(getApplicationContext(),
-                                    dataSnapshot.getValue(Profile.class).isOld()==true?ChooseiconsActivity.class:Search.class));
+                                    dataSnapshot.getValue(Profile.class).isOld()==true?ChooseiconsActivity.class:Search.class)); //this line starts the suitable activity using datasnapshop
                             finish();
                         }
 
                         @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                        public void onCancelled(@NonNull DatabaseError databaseError) { // this line removes the option to cancel. once you log in, you can't return to LoginActivity
 
                         }
                     });
