@@ -1,4 +1,6 @@
 {
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places"></script>
+
   "project_info": {
     "project_number": "225213452854",
     "firebase_url": "https://wehere-8275d.firebaseio.com",
