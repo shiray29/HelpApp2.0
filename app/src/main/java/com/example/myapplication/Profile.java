@@ -1,6 +1,5 @@
 package com.example.myapplication;
 
-import android.location.Geocoder;
 import android.location.Location;
 
 import androidx.annotation.NonNull;
@@ -35,7 +34,7 @@ public class Profile {
         this.latitude= latitude;
 
     }
-}
+
 
     public Profile(String name, String adress, String id, String cellnum, String email, String passsword,
                    String uri, boolean isOld, boolean isBuild, boolean isClean, boolean isCompany, boolean isShop, boolean isCall, Double longitude, Double latitude) {
@@ -62,12 +61,16 @@ public class Profile {
         fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
             @Override
             public void onComplete(@NonNull Task<Location> task) {
-                Location location= task.getResult();
-                if (location!=null){
-                    Geocoder geocoder= new Geocoder(Profile.this, location.getLongitude(), location.getLatitude());
+                Location location = task.getResult();
+                if (location != null) {
+                    double longitude = location.getLongitude();
+                    double latitude = location.getLatitude();
 
                 }
             }
+        });
+}
+
     public String getAdress() {
         return adress;
     }
