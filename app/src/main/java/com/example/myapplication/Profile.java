@@ -71,6 +71,10 @@ public class Profile {
         });
 }
 
+    public Profile() {
+
+    }
+
     public String getAdress() {
         return adress;
     }
@@ -133,7 +137,7 @@ public class Profile {
 
     public void setIsBuild(boolean isBuild) { this.isBuild= isBuild; }
 
-    public boolean isClean() {
+    public boolean getClean() {
         return isClean;
     }
 
@@ -141,7 +145,7 @@ public class Profile {
         isClean = clean;
     }
 
-    public boolean isCompany() {
+    public boolean getCompany() {
         return isCompany;
     }
 
@@ -149,7 +153,7 @@ public class Profile {
         isCompany = company;
     }
 
-    public boolean isShop() {
+    public boolean getShop() {
         return isShop;
     }
 
@@ -157,7 +161,7 @@ public class Profile {
         isShop = shop;
     }
 
-    public boolean isCall() {
+    public boolean getCall() {
         return isCall;
     }
 

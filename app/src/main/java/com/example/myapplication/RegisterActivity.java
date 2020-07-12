@@ -191,6 +191,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 profile.setOld(false);
 
             }
+
+            // כאן להוציא נתוני מיקום!
+
             String id= databaseReference.push().getKey();
             databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(profile); // creates a new user in Firebase Database
             startActivity(new Intent(getApplicationContext(), profile.isOld()==true?ChooseiconsActivity.class:Search.class)); // starts the suitable activity according to isOld

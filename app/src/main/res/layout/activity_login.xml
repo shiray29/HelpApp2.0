@@ -9,8 +9,8 @@
 
     <TextView
         android:id="@+id/textview_logintitle"
-        android:layout_width="300dp"
-        android:layout_height="105dp"
+        android:layout_width="298dp"
+        android:layout_height="122dp"
         android:text="- משתמש קיים     התחבר"
         android:textColor="#000000"
         android:textIsSelectable="false"
