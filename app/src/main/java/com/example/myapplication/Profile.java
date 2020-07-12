@@ -1,19 +1,27 @@
 package com.example.myapplication;
 
+import android.location.Geocoder;
+import android.location.Location;
+
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+
 public class Profile {
     private String name, adress, id, cellnum, password, email, uriId, uriProfile;
     private boolean isOld, isBuild, isClean, isCompany, isShop, isCall;
+    private Double longitude, latitude;
+    private FusedLocationProviderClient fusedLocationProviderClient;
 
 
-
-
-    public Profile(String name, String adress, String id, String cellnum, String email, String passsword,
-                   String uri, boolean isOld, boolean isBuild, boolean isClean, boolean isCompany, boolean isShop, boolean isCall) {
+    public Profile(){
         this.name = name;
         this.adress = adress;
         this.id = id;
         this.cellnum = cellnum;
-        this.password= passsword;
+        this.password= password;
         this.email= email;
         this.uriId= uriId;
         this.uriProfile= uriProfile;
@@ -23,11 +31,43 @@ public class Profile {
         this.isCompany = isCompany;
         this.isShop = isShop;
         this.isCall = isCall;
+        this.longitude= longitude;
+        this.latitude= latitude;
 
+    }
+}
 
+    public Profile(String name, String adress, String id, String cellnum, String email, String passsword,
+                   String uri, boolean isOld, boolean isBuild, boolean isClean, boolean isCompany, boolean isShop, boolean isCall, Double longitude, Double latitude) {
+        this.name = name;
+        this.adress = adress;
+        this.id = id;
+        this.cellnum = cellnum;
+        this.password= password;
+        this.email= email;
+        this.uriId= uriId;
+        this.uriProfile= uriProfile;
+        this.isOld = isOld;
+        this.isBuild = isBuild;
+        this.isClean = isClean;
+        this.isCompany = isCompany;
+        this.isShop = isShop;
+        this.isCall = isCall;
+        this.longitude= longitude;
+        this.latitude= latitude;
 
     }
 
+    void getLocation() {
+        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+            @Override
+            public void onComplete(@NonNull Task<Location> task) {
+                Location location= task.getResult();
+                if (location!=null){
+                    Geocoder geocoder= new Geocoder(Profile.this, location.getLongitude(), location.getLatitude());
+
+                }
+            }
     public String getAdress() {
         return adress;
     }

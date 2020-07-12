@@ -1,7 +1,11 @@
 package com.example.myapplication;
 
+import android.Manifest;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Geocoder;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,11 +17,16 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -25,6 +34,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import java.util.Locale;
 
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
@@ -39,6 +50,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private Uri imageUri;
     private TextView textViewProfile, textViewId;
     private  boolean flag;
+    FusedLocationProviderClient fusedLocationProviderClient;
 
 
 
@@ -119,6 +131,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         MimeTypeMap mime= MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cr.getType(uri));
     }
+
+
+    @Override
+    public void onCreate(Bundle saveInstancestate ) {
+        super.onCreate(saveInstancestate);
+        setContentView(R.layout.activity_register);
+        FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+    }
+
     @Override
     public void onClick(View v) {
         String fullname = edittextFullname.getText().toString().trim();
@@ -146,7 +167,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             openFile();
             upload();
         }
-        if (btnConfirm == v) {
+        if (btnConfirm == v)
+            if (ActivityCompat.checkSelfPermission((RegisterActivity.this(), Manifest.permission.ACCESS_FINE_LOCATION) == (PackageManager.PERMISSION_GRANTED)){
+                getLocation();
+            }else {
+                ActivityCompat.requestPermissions(RegisterActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+
+            }
+
             if ((checkboxOldie.isChecked() && checkboxVolunteer.isChecked()) || (!checkboxOldie.isChecked() && !checkboxVolunteer.isChecked())) // checks whether the user chose 2 or 0 options
             {
                 Toast.makeText(this,"יש לסמן רק אחת מהאפשרויות - מתנדב או קשיש", Toast.LENGTH_SHORT).show();
@@ -170,5 +198,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
 
 
-    }
 }
+
+
