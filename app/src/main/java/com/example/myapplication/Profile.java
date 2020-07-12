@@ -2,13 +2,13 @@ package com.example.myapplication;
 
 public class Profile {
     private String name, adress, id, cellnum, password, email, uriId, uriProfile;
-    private boolean isOld;
+    private boolean isOld, isBuild, isClean, isCompany, isShop, isCall;
 
-    public Profile(){
 
-    }
 
-    public Profile(String name, String adress, String id, String cellnum, String email, String passsword,String uri, boolean isOld) {
+
+    public Profile(String name, String adress, String id, String cellnum, String email, String passsword,
+                   String uri, boolean isOld, boolean isBuild, boolean isClean, boolean isCompany, boolean isShop, boolean isCall) {
         this.name = name;
         this.adress = adress;
         this.id = id;
@@ -18,6 +18,14 @@ public class Profile {
         this.uriId= uriId;
         this.uriProfile= uriProfile;
         this.isOld = isOld;
+        this.isBuild = isBuild;
+        this.isClean = isClean;
+        this.isCompany = isCompany;
+        this.isShop = isShop;
+        this.isCall = isCall;
+
+
+
     }
 
     public String getAdress() {
@@ -76,6 +84,43 @@ public class Profile {
 
     public void setPassword(String password) { this.password= password; }
 
+    public boolean getIsBuild() {
+        return isBuild;
+    }
+
+    public void setIsBuild(boolean isBuild) { this.isBuild= isBuild; }
+
+    public boolean isClean() {
+        return isClean;
+    }
+
+    public void setClean(boolean clean) {
+        isClean = clean;
+    }
+
+    public boolean isCompany() {
+        return isCompany;
+    }
+
+    public void setCompany(boolean company) {
+        isCompany = company;
+    }
+
+    public boolean isShop() {
+        return isShop;
+    }
+
+    public void setShop(boolean shop) {
+        isShop = shop;
+    }
+
+    public boolean isCall() {
+        return isCall;
+    }
+
+    public void setCall(boolean call) {
+        isCall = call;
+    }
 
 
 }
