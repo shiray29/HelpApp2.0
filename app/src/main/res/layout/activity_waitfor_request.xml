@@ -6,19 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".WaitforRequest">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="310dp"
-        android:layout_height="174dp"
-        android:text="בקשתך נרשמה מחכה להצעות"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.841"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.292" />
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="123dp"
@@ -40,8 +27,32 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.713"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text=".בקשתך התקבלה"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.177" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.205" />
+
+    <EditText
+        android:id="@+id/editText3"
+        android:layout_width="316dp"
+        android:layout_height="176dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="במידה ומתנדב יאשר את בקשתך, ישלח מסרון. "
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        tools:layout_editor_absoluteX="79dp"
+        tools:layout_editor_absoluteY="182dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -71,9 +71,6 @@ public class Profile {
         });
 }
 
-    public Profile() {
-
-    }
 
     public String getAdress() {
         return adress;
