@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -49,9 +50,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private ProgressBar progressBar;
     private Uri imageUri;
     private TextView textViewProfile, textViewId;
-    private  boolean flag;
+    private boolean flag;
     FusedLocationProviderClient fusedLocationProviderClient;
-
 
 
     @Override
@@ -69,11 +69,40 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         btnConfirm = findViewById(R.id.btn_confirm);
         progressBar = findViewById(R.id.progress_bar);
         storageReference = FirebaseStorage.getInstance().getReference("users"); // this line defines reference to Firebase Storage in order to store jpg files
-        databaseReference= FirebaseDatabase.getInstance().getReference("users"); // this line defines reference to Firebase Database in order to store users data
-        profile= new Profile();
-        textViewId= findViewById(R.id.textview_insertidphoto);
-        textViewProfile= findViewById(R.id.textview_insertprofile);
+        databaseReference = FirebaseDatabase.getInstance().getReference("users"); // this line defines reference to Firebase Database in order to store users data
+        profile = new Profile();
+        textViewId = findViewById(R.id.textview_insertidphoto);
+        textViewProfile = findViewById(R.id.textview_insertprofile);
+        this.fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+
+
     }
+
+    public void getLocation() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+            @Override
+            public void onComplete(@NonNull Task<Location> task) {
+                Location location = task.getResult();
+                if (location != null) {
+                    double longitude = location.getLongitude();
+                    double latitude = location.getLatitude();
+
+                }
+            }
+        });
+    }
+
     private void openFile(){ //this function opens the cellphone's gallery using intents
         Intent intent= new Intent ();
         intent.setType("image/*");
@@ -133,12 +162,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
 
-    @Override
-    public void onCreate(Bundle saveInstancestate ) {
-        super.onCreate(saveInstancestate);
-        setContentView(R.layout.activity_register);
-        FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-    }
+
 
     @Override
     public void onClick(View v) {
@@ -168,9 +192,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             upload();
         }
         if (btnConfirm == v)
-            if (ActivityCompat.checkSelfPermission((RegisterActivity.this(), Manifest.permission.ACCESS_FINE_LOCATION) == (PackageManager.PERMISSION_GRANTED)){
+            if ((ActivityCompat.checkSelfPermission((RegisterActivity.this(),
+                Manifest.permission.ACCESS_FINE_LOCATION) == (PackageManager.PERMISSION_GRANTED))
+            {
                 getLocation();
-            }else {
+            }
+            else{
                 ActivityCompat.requestPermissions(RegisterActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
 
             }
