@@ -117,7 +117,7 @@ public class Profile {
 
     public void setUriId(String uriId){this.uriId= uriId;}
 
-    public static void setUriProfile(String uriProfile){this.uriProfile=uriProfile;}
+    public void setUriProfile(String uriProfile){this.uriProfile=uriProfile;}
 
     public String getEmail() {
         return email;

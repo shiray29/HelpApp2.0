@@ -13,10 +13,12 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -120,7 +122,17 @@ public class EditProfile extends AppCompatActivity {
         openFile();
         upload();
     }
-     if (btnClose == v){
+    @Override
+    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        Profile profile = dataSnapshot.getValue(Profile.class);
+        profile.setName(fullName);
+        profile.setUriProfile(imageUri);
+        profile.setAdress(adress);
+        profile.setCellnum(cellNum);
+        profile.getPassword(password);
+    }
+
+        if (btnClose == v){
         startActivity(new Intent(getApplicationContext(), profile.isOld()==true?ChooseiconsActivity.class:Search.class)); // starts the suitable activity according to isOld
     }
 }
