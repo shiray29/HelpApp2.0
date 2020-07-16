@@ -1,17 +1,19 @@
 package com.example.myapplication;
 
-import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
+import android.telephony.SmsManager;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.widget.Button;
+import android.widget.PopupWindow;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -27,15 +29,14 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-
 public class Search extends AppCompatActivity implements OnMapReadyCallback {
 
     private DatabaseReference databaseReference;
     private ArrayList profileList;
+    private ArrayList markerList;
     private GoogleMap googleMap;
     private double thisLon, thisLat;
-
-
+    private Profile thisUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,7 @@ public class Search extends AppCompatActivity implements OnMapReadyCallback {
         mapFragment.getMapAsync(this);
         databaseReference= FirebaseDatabase.getInstance().getReference("users");
         final ArrayList<Profile> profileList = new ArrayList<Profile>();
+        final ArrayList<Marker> markerList = new ArrayList<Marker>();
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) { // creates all profiles lists
@@ -63,43 +65,50 @@ public class Search extends AppCompatActivity implements OnMapReadyCallback {
         double tempLat;
         double tempLon;
 
-        DatabaseReference  ref = FirebaseDatabase.getInstance().getReference().child(FirebaseAuth.getInstance().getCurrentUser().getUid()); // get current user Lat & Lon
+        DatabaseReference  ref = FirebaseDatabase.getInstance().getReference().child(FirebaseAuth.getInstance()
+                .getCurrentUser().getUid()); // gets current user Lat & Lon
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Profile profile = dataSnapshot.getValue(Profile.class);
-                thisLat = profile.getLat();
-                thisLon = Profile.getLon();
+                thisLat = profile.getLatitude();
+                thisLon = profile.getLongitude();
+                thisUser = profile;
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) { }
         });
 
         while (profileList.size() > count) { // מעלה את כל הקשישים במרחק של עד 30 ק"מ מהמשתמש
-            // TODO - רשימץ מרקרים עם קישור לקשיש
             if (profileList.get(count).isOld())
             {
-             tempLat = profileList.get(count).getLat(); // hadas shall add
-             tempLon = profileList.get(count).getLon();
+             tempLat = profileList.get(count).getLatitude(); // hadas shall add
+             tempLon = profileList.get(count).getLongitude();
              if (findDistance(tempLat, tempLon, thisLat, thisLon) <=30)
              {
+                 String title;
                  if (profileList.get(count).getIsBuild()){
-                     showMarker(tempLat, tempLon, R.id.imageView_build);
+                     title = "סיוע בשיפוץ";
+                     showMarker(tempLat, tempLon, R.id.imageView_build, title);
              }
                  if (profileList.get(count).getClean()){
-                 showMarker(tempLat, tempLon, R.id.imageView_clean);
+                     title = "סיוע בניקיון";
+                     showMarker(tempLat, tempLon, R.id.imageView_clean, title);
              }
                  if (profileList.get(count).getCompany());
                  {
-                 showMarker(tempLat, tempLon, R.id.imageView_company);
+                     title = "אירוח חברה";
+                     showMarker(tempLat, tempLon, R.id.imageView_company, title);
              }
                  if (profileList.get(count).getShop());
                  {
-                 showMarker(tempLat, tempLon, R.id.imageView_shop);
+                     title = "סיוע בקניות";
+                     showMarker(tempLat, tempLon, R.id.imageView_shop, title);
              }
                  if (profileList.get(count).getCall());
                  {
-                 showMarker(tempLat, tempLon, R.id.imageView_call);
+                     title = "קשר טלפוני";
+                     showMarker(tempLat, tempLon, R.id.imageView_call, title);
              }
              }
             }
@@ -116,11 +125,11 @@ public class Search extends AppCompatActivity implements OnMapReadyCallback {
         return distance;
     }
 
-    public void showMarker(double lat, double lon, int imageID) { // מעלה את האייקון על המפה
+    public void showMarker(double lat, double lon, int imageID, String title) { // מעלה את האייקון על המפה ומוסיפה את המרקר לרשימה
         Marker m1 = googleMap.addMarker(new MarkerOptions().position(new LatLng(lat, lon))
-                .anchor(0.5f, 0.5f).title("").snippet("").icon(BitmapDescriptorFactory.fromResource(imageID)));
+                .anchor(0.5f, 0.5f).title(title).snippet("").icon(BitmapDescriptorFactory.fromResource(imageID)));
+        markerList.add(m1);
     }
-
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -130,25 +139,75 @@ public class Search extends AppCompatActivity implements OnMapReadyCallback {
         this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(point));
     }
 
+    // מכאן והלאה - להוסיף POP-UP למתנדב - האם אתה בטוח שאתה רוצה לשלוח הודעה לקשיש הזה?
+    // ומשם - לשלוח SMS לקשיש עם פרטי המתנדב
+    // יש ליצור רשימת מרקרים לשימוש הonClick, וכדי לגשת לקשיש שנמצא על כל אחד מהם לחפש את המיקום שלו ברשימת המתנדבים.
+
 
     // דוגמא
 
+    public void sendSmsOld(Profile currentUser, Profile wantedOldie, String helpType)
+    // מקבלת - פרופיל המתנדב והקשיש וסוג העזרה, שולחת לקשיש הודעה בהתאם
+    {
+        String phoneNo = wantedOldie.getCellnum();
+        String message = "שלום, קוראים לי " + currentUser.getName() + ", הכתובת שלי היא " + currentUser.getAdress() + "ואני רוצה לעזור לך ב"
+                + helpType + ". כדי ליצור איתי קשר ולקבל את עזרתי, אנא התקשר למספר הטלפון שלי - " + currentUser.getCellnum();
+        SmsManager smsManager = SmsManager.getDefault();
+        smsManager.sendTextMessage(phoneNo, null, message, null, null);
+        Toast.makeText(getApplicationContext(), "ההודעה נשלחה לקשיש",
+                Toast.LENGTH_LONG).show();
+    }
+
+    public Profile oldUserFromLocation(LatLng location) // מקבלת מיקום ומחזירה את הקשיש שנמצא בו
+    {
+        for (int j = 0; j<profileList.size(); j++){
+            Profile tempProf = (Profile) profileList.get(j);
+            if ((tempProf.isOld()) && (tempProf.getLatitude() == location.latitude) &&
+                    (tempProf.getLongitude() == location.longitude))
+            {
+                return tempProf;
+            }
+        }
+        return null;
+
+    }
+
+    public void showPopup ()
+    {
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        PopupWindow pw = new PopupWindow(inflater.inflate(R.layout.popupsearch, null, false),
+                400,600, true);
+        pw.showAtLocation(this.findViewById(R.id.mapView), Gravity.CENTER, 0, 0); // האם להראות על המפה? TODO -
+    }
+
     public void onClick(View V){
-        Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.popupvul);
-        Button accept = dialog.findViewById(R.id.btn_accept);
-        Button decline = dialog.findViewById(R.id.btn_decline);
-        accept.setOnClickListener((View.OnClickListener) this);
-        decline.setOnClickListener((View.OnClickListener) this);
-        if (V==accept){
-            dialog.cancel();
-            // TODO - notification;
+        for (int i = 0; i < markerList.size(); i++)
+        {
+            if (markerList.get(i) ==V)
+            {
+                // pop up message - are you sure?
+                Marker mar = (Marker) markerList.get(i);
+                LatLng posi = mar.getPosition();
+                String helpType = mar.getTitle();
+                Profile wantedOld = oldUserFromLocation(posi);
+                sendSmsOld(thisUser, wantedOld, helpType);
+            }
+        }
         }
 
+        // do we still need this?
+        //  Dialog dialog = new Dialog(this);
+    //        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+    //        dialog.setContentView(R.layout.popupvul);
+    //        Button accept = dialog.findViewById(R.id.btn_accept);
+    //        Button decline = dialog.findViewById(R.id.btn_decline);
+    //        accept.setOnClickListener((View.OnClickListener) this);
+    //        decline.setOnClickListener((View.OnClickListener) this);
+    //        if (V==accept){
+    //            dialog.cancel();
         // dialog.show
 
 
 
     }
-}
+

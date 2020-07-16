@@ -1,17 +1,12 @@
 package com.example.myapplication;
 
-import android.location.Location;
-
-import androidx.annotation.NonNull;
-
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+
 
 public class Profile {
     private String name, adress, id, cellnum, password, email, uriId, uriProfile;
     private boolean isOld, isBuild, isClean, isCompany, isShop, isCall;
-    private Double longitude, latitude;
+    private double longitude, latitude;
     private FusedLocationProviderClient fusedLocationProviderClient;
 
 
@@ -57,20 +52,21 @@ public class Profile {
 
     }
 
-    static void getLocation() {
-        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-            @Override
-            public void onComplete(@NonNull Task<Location> task) {
-                Location location = task.getResult();
-                if (location != null) {
-                    double longitude = location.getLongitude();
-                    double latitude = location.getLatitude();
+    public double getLongitude() {
+        return longitude;
+    }
 
-                }
-            }
-        });
-}
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
 
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
 
     public String getAdress() {
         return adress;
