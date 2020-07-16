@@ -73,7 +73,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         profile= new Profile();
         textViewId= findViewById(R.id.textview_insertidphoto);
         textViewProfile= findViewById(R.id.textview_insertprofile);
+        setContentView(R.layout.activity_register);
+        FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
     }
+
     private void openFile(){ //this function opens the cellphone's gallery using intents
         Intent intent= new Intent ();
         intent.setType("image/*");
@@ -134,13 +137,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
 
     @Override
-    public void onCreate(Bundle saveInstancestate ) {
-        super.onCreate(saveInstancestate);
-        setContentView(R.layout.activity_register);
-        FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-    }
-
-    @Override
     public void onClick(View v) {
         String fullname = edittextFullname.getText().toString().trim();
         String cellnum = edittextCellnum.getText().toString().trim();
@@ -169,8 +165,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
         if (btnConfirm == v)
             if (ActivityCompat.checkSelfPermission((RegisterActivity.this(), Manifest.permission.ACCESS_FINE_LOCATION) == (PackageManager.PERMISSION_GRANTED)){
-                getLocation();
-            }else {
+                Profile.getLocation();
+            }
+            else {
                 ActivityCompat.requestPermissions(RegisterActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
 
             }

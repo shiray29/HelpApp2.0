@@ -57,7 +57,7 @@ public class Profile {
 
     }
 
-    void getLocation() {
+    static void getLocation() {
         fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
             @Override
             public void onComplete(@NonNull Task<Location> task) {
@@ -117,7 +117,7 @@ public class Profile {
 
     public void setUriId(String uriId){this.uriId= uriId;}
 
-    public void setUriProfile(String uriProfile){this.uriProfile=uriProfile;}
+    public static void setUriProfile(String uriProfile){this.uriProfile=uriProfile;}
 
     public String getEmail() {
         return email;

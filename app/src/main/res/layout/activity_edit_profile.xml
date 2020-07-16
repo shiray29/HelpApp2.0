@@ -7,122 +7,96 @@
     tools:context=".EditProfile">
 
     <TextView
-        android:id="@+id/location"
-        android:layout_width="325dp"
-        android:layout_height="48dp"
-        android:text="כתובת"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:id="@+id/textview_insertprofile2"
+        android:layout_width="313dp"
+        android:layout_height="62dp"
+        android:text="הכנס תמונת פרופיל"
+        android:textSize="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.662"
+        app:layout_constraintHorizontal_bias="0.602"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.44" />
-
-    <TextView
-        android:id="@+id/password"
-        android:layout_width="325dp"
-        android:layout_height="48dp"
-        android:text="הכנס סיסמה"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.662"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.683" />
-
-    <TextView
-        android:id="@+id/id_image"
-        android:layout_width="325dp"
-        android:layout_height="48dp"
-        android:text="תצלום תעודת זהות"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.662"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.562" />
-
-    <TextView
-        android:id="@+id/cell_num"
-        android:layout_width="326dp"
-        android:layout_height="47dp"
-        android:text="מספר טלפון "
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.694"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.331" />
-
-    <TextView
-        android:id="@+id/id_num"
-        android:layout_width="325dp"
-        android:layout_height="48dp"
-        android:text="מספר תעודת זהות"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.662"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.215" />
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="119dp"
-        android:layout_height="133dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.023"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@android:mipmap/sym_def_app_icon" />
-
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="213dp"
-        android:layout_height="53dp"
-        android:text="שם מלא: (גלוי לכולם) "
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.868"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.107" />
+        app:layout_constraintVertical_bias="0.085" />
 
     <EditText
-        android:id="@+id/email"
-        android:layout_width="328dp"
-        android:layout_height="52dp"
+        android:id="@+id/adress"
+        android:layout_width="313dp"
+        android:layout_height="62dp"
         android:ems="10"
-        android:inputType="textEmailAddress"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        tools:layout_editor_absoluteX="48dp"
-        tools:layout_editor_absoluteY="542dp"
-        tools:text="דואר אלקטרוני" />
+        android:hint="כתובת"
+        android:inputType="textPersonName"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.612"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.499" />
 
     <Button
-        android:id="@+id/oldie"
-        android:layout_width="121dp"
-        android:layout_height="69dp"
-        android:text="קשיש"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        tools:layout_editor_absoluteX="243dp"
-        tools:layout_editor_absoluteY="622dp" />
+        android:id="@+id/btn_close"
+        android:layout_width="111dp"
+        android:layout_height="75dp"
+        android:layout_marginBottom="48dp"
+        android:text="סגור"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.12"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/volunteer"
-        android:layout_width="112dp"
-        android:layout_height="68dp"
-        android:text="מתנדב"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        tools:layout_editor_absoluteX="74dp"
-        tools:layout_editor_absoluteY="622dp" />
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="107dp"
+        android:layout_height="29dp"
+        tools:layout_editor_absoluteX="60dp"
+        tools:layout_editor_absoluteY="544dp" />
+
+    <EditText
+        android:id="@+id/full_name"
+        android:layout_width="313dp"
+        android:layout_height="62dp"
+        android:ems="10"
+        android:hint="שם מלא (גלוי)"
+        android:inputType="textPersonName"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.612"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.228" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="313dp"
+        android:layout_height="62dp"
+        android:ems="10"
+        android:hint="סיסמה"
+        android:inputType="textPassword"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.604"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.367" />
+
+    <EditText
+        android:id="@+id/cell_num"
+        android:layout_width="313"
+        android:layout_height="62"
+        android:ems="10"
+        android:hint="מספר טלפון"
+        android:inputType="phone"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.612"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.645" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
