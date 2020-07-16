@@ -9,7 +9,6 @@ import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -18,9 +17,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -36,6 +38,7 @@ public class EditProfile extends AppCompatActivity {
     private ProgressBar progressBar;
     private  boolean flag;
     private Profile profile;
+    private String fullname,cellnum,Adress,Password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +54,7 @@ public class EditProfile extends AppCompatActivity {
         progressBar = findViewById(R.id.progress_bar);
         textViewProfile= findViewById(R.id.textview_insertprofile2);
     }
-    private void openFile(){ //this function opens the cellphone's gallery using intents
-        Intent intent= new Intent ();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent,1);
-    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){ //this function re-defines the imageUri
         super.onActivityResult(requestCode, resultCode, data);
@@ -104,37 +102,57 @@ public class EditProfile extends AppCompatActivity {
         MimeTypeMap mime= MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cr.getType(uri));
     }
-    @Override
+
+    private void openFile(){ //this function opens the cellphone's gallery using intents
+        Intent intent= new Intent ();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent,1);
+    }
+
     public void onClick(View v) {
-        String fullName = fullName.getText().toString().trim();
-        String cellNum = cellNum.getText().toString().trim();
-        String adress = adress.getText().toString().trim();
-        String password = password.getText().toString().trim();
+        if(textViewProfile==v){
+            openFile();
+            upload();
+        }
+        if (btnClose == v) {
+            fullname = fullName.getText().toString().trim();
+            cellnum = cellNum.getText().toString().trim();
+            Adress = adress.getText().toString().trim();
+            Password = password.getText().toString().trim();
+            databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    profile = dataSnapshot.getValue(Profile.class);
+                    if (!(fullname.isEmpty())) {
+                        profile.setName(fullname);
+                    }
+                    if (!(Adress.isEmpty())) {
+                        profile.setAdress(Adress);
+                    }
+                    if (!(cellnum.isEmpty())) {
+                        profile.setCellnum(cellnum);
+                    }
+                    if (!(Password.isEmpty())) {
+                        profile.getPassword(Password);
+                    }
+                }
 
-        profile.setName(fullName);
-        profile.setCellnum(cellNum);
-        profile.setAdress(adress);
-        profile.setPassword(password);
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-    }
-     if (textViewProfile==v) {
-        flag= false;
-        openFile();
-        upload();
-    }
-    @Override
-    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-        Profile profile = dataSnapshot.getValue(Profile.class);
-        profile.setName(fullName);
-        profile.setUriProfile(imageUri);
-        profile.setAdress(adress);
-        profile.setCellnum(cellNum);
-        profile.getPassword(password);
+                }
+
+            });
+
+            databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(profile);
+            startActivity(new Intent(getApplicationContext(), profile.isOld() == true ? ChooseiconsActivity.class : Search.class)); // starts the suitable activity according to isOld
+
+        }
     }
 
-        if (btnClose == v){
-        startActivity(new Intent(getApplicationContext(), profile.isOld()==true?ChooseiconsActivity.class:Search.class)); // starts the suitable activity according to isOld
-    }
+
+
 }
 
 

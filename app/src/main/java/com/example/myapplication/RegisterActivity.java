@@ -159,7 +159,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
         if (btnConfirm == v){
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == (PackageManager.PERMISSION_GRANTED)){
-                Profile.getLocation();
+                profile.getLocation();
+
             }
             else {
                 ActivityCompat.requestPermissions(RegisterActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
