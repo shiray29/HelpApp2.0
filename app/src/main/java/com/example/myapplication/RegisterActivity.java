@@ -184,7 +184,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
             }
 
-            // כאן להוציא נתוני מיקום!
+            profile.getLocation();
 
             String id= databaseReference.push().getKey();
             databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(profile); // creates a new user in Firebase Database

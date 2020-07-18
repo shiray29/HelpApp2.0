@@ -33,7 +33,7 @@ private TextView message, message1;
             startActivity(new Intent(getApplicationContext(),ChooseiconsActivity.class));
         }
         if (reqChange==v){
-            isBuild==false;
+
         }
     }
 }
