@@ -1,11 +1,15 @@
 package com.example.myapplication;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
@@ -37,6 +41,7 @@ public class Search extends AppCompatActivity implements OnMapReadyCallback {
     private GoogleMap googleMap;
     private double thisLon, thisLat;
     private Profile thisUser;
+    private Button btnSearchedit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +52,7 @@ public class Search extends AppCompatActivity implements OnMapReadyCallback {
         databaseReference= FirebaseDatabase.getInstance().getReference("users");
         final ArrayList<Profile> profileList = new ArrayList<Profile>();
         final ArrayList<Marker> markerList = new ArrayList<Marker>();
+        btnSearchedit = findViewById(R.id.btn_searchedit);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) { // creates all profiles lists
@@ -181,33 +187,40 @@ public class Search extends AppCompatActivity implements OnMapReadyCallback {
     }
 
     public void onClick(View V){
+        if (V == btnSearchedit) {
+            Intent intent_login = new Intent(this, EditProfile.class);
+            startActivity(intent_login);
+        }
         for (int i = 0; i < markerList.size(); i++)
         {
             if (markerList.get(i) ==V)
             {
-                // pop up message - are you sure?
-                Marker mar = (Marker) markerList.get(i);
-                LatLng posi = mar.getPosition();
-                String helpType = mar.getTitle();
-                Profile wantedOld = oldUserFromLocation(posi);
-                sendSmsOld(thisUser, wantedOld, helpType);
+                Dialog dialog = new Dialog(this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.popupsearch);
+                Button accept = dialog.findViewById(R.id.btn_accept);
+                Button decline = dialog.findViewById(R.id.btn_decline);
+                accept.setOnClickListener((View.OnClickListener) this);
+                decline.setOnClickListener((View.OnClickListener) this);
+                if (V == accept)
+                {
+                    Marker mar = (Marker) markerList.get(i);
+                    LatLng posi = mar.getPosition();
+                    String helpType = mar.getTitle();
+                    Profile wantedOld = oldUserFromLocation(posi);
+                    sendSmsOld(thisUser, wantedOld, helpType);
+                    dialog.cancel();
+                    dialog.show();
+                }
+
+                if (V == decline)
+                {
+                    dialog.cancel();
+                    dialog.show();
+                }
+                }
+            }
             }
         }
-        }
 
-        // do we still need this?
-        //  Dialog dialog = new Dialog(this);
-    //        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-    //        dialog.setContentView(R.layout.popupvul);
-    //        Button accept = dialog.findViewById(R.id.btn_accept);
-    //        Button decline = dialog.findViewById(R.id.btn_decline);
-    //        accept.setOnClickListener((View.OnClickListener) this);
-    //        decline.setOnClickListener((View.OnClickListener) this);
-    //        if (V==accept){
-    //            dialog.cancel();
-        // dialog.show
-
-
-
-    }
 

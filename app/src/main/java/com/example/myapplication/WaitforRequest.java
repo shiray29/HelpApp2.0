@@ -1,39 +1,44 @@
 package com.example.myapplication;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class WaitforRequest extends AppCompatActivity implements View.OnClickListener {
-private Button reqChange, editProfile;
-private TextView message, message1;
+public class WaitforRequest extends AppCompatActivity implements View.OnClickListener
+{
+    private Button btnReqChange;
+    private TextView textViewExplain;
+    private TextView textViewWaitforReq;
+    private ImageView imageViewWait;
+    private Button btnEditWait;
+    private Profile profile;
 
-
+    public WaitforRequest(Button reqChange) {
+       reqChange= findViewById(R.id.btn_reqchange);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_waitfor_request);
-        reqChange= findViewById(R.id.req_change);
-        editProfile= findViewById(R.id.ed_pro);
-        message= findViewById(R.id.message);
-        message1= findViewById(R.id.message1);
-
-
-
+        btnReqChange = findViewById(R.id.btn_reqchange);
+        btnEditWait = findViewById(R.id.btn_editwait);
+        textViewWaitforReq = findViewById(R.id.textView_waitforreq);
+        textViewExplain = findViewById(R.id.textView_explain);
+        imageViewWait = findViewById(R.id.imageViewWait);
     }
 
     @Override
-    public void onClick(View v) {
-        if (editProfile==v){
-            startActivity(new Intent(getApplicationContext(),ChooseiconsActivity.class));
+    public void onClick(View V)
+    {
+        if (btnEditWait == V)
+        {
+            
         }
-        if (reqChange==v){
 
-        }
     }
 }

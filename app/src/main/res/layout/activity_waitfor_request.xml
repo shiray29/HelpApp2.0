@@ -6,57 +6,71 @@
     android:layout_height="match_parent"
     tools:context=".WaitforRequest">
 
+    <TextView
+        android:id="@+id/textView_waitforreq"
+        android:layout_width="305dp"
+        android:layout_height="74dp"
+        android:text="בקשתך נרשמה"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.229" />
+
+    <ImageView
+        android:id="@+id/imageViewWait"
+        android:layout_width="92dp"
+        android:layout_height="78dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.006"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.026"
+        app:srcCompat="@android:mipmap/sym_def_app_icon" />
+
     <Button
-        android:id="@+id/req_change"
-        android:layout_width="143dp"
-        android:layout_height="112dp"
+        android:id="@+id/btn_reqchange"
+        android:layout_width="200dp"
+        android:layout_height="158dp"
         android:text="לשינוי הבקשה לחץ כאן"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.746" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_waitforreq"
+        app:layout_constraintVertical_bias="0.782" />
 
     <TextView
-        android:id="@+id/message"
-        android:layout_width="259dp"
-        android:layout_height="112dp"
-        android:text="במידה ומתנדב יאשר את בקשתך"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:id="@+id/textView_explain"
+        android:layout_width="375dp"
+        android:layout_height="218dp"
+        android:text="במידה וימצא מתנדב שיכול לעזור לך, תישלח אליך הודעת SMS עם הפרטים שלו!"
+        android:textColor="#000000"
+        android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.822"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.331" />
-
-    <TextView
-        android:id="@+id/message1"
-        android:layout_width="341dp"
-        android:layout_height="97dp"
-        android:layout_marginTop="139dp"
-        android:text="יתקבל מסרון עם פרטיו למען יצירת קשר"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.614"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.359" />
+        app:layout_constraintVertical_bias="0.499" />
 
     <Button
-        android:id="@+id/ed_pro"
-        android:layout_width="114dp"
-        android:layout_height="89dp"
-        android:text="שינוי פרופיל"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:id="@+id/btn_editwait"
+        android:layout_width="256dp"
+        android:layout_height="94dp"
+        android:text="לעריכת הפרופיל"
+        android:textColor="#040000"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.095"
+        app:layout_constraintHorizontal_bias="0.921"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.12" />
+        app:layout_constraintVertical_bias="0.029" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

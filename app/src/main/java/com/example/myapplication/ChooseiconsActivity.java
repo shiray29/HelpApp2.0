@@ -22,6 +22,7 @@ public class ChooseiconsActivity extends AppCompatActivity {
     private ImageView imageViewBuild, imageViewCall, imageViewClean, imageViewCompany, imageViewShop;
     private TextView textViewPick, textViewBuild, textViewCall, textViewClean, textViewCompany, textViewShop;
     private Button btnconfirmicon;
+    private Profile profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,8 @@ public class ChooseiconsActivity extends AppCompatActivity {
         textViewShop = findViewById(R.id.textView_shop);
         textViewPick = findViewById(R.id.textView_pick);
         btnconfirmicon = findViewById(R.id.btn_confirmicon);
+        profile = new Profile();
+
     }
 
     public void onClick(View V){
@@ -67,7 +70,7 @@ public class ChooseiconsActivity extends AppCompatActivity {
             ref.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    Profile profile = dataSnapshot.getValue(Profile.class);
+                    profile = dataSnapshot.getValue(Profile.class);
                     if (finalBuildCount1 %2 == 1){ profile.setIsBuild(true);}
                     if (finalCallCount %2 == 1){ profile.setCall(true);}
                     if (finalCleanCount %2 == 1){ profile.setClean(true);}
@@ -78,6 +81,7 @@ public class ChooseiconsActivity extends AppCompatActivity {
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) { }
             });
+            ref.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(profile);
             Intent intent_waitForRequest = new Intent(this, WaitforRequest.class);
             startActivity(intent_waitForRequest);
         }
