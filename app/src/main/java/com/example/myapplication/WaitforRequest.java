@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -37,8 +38,14 @@ public class WaitforRequest extends AppCompatActivity implements View.OnClickLis
     {
         if (btnEditWait == V)
         {
-            
+            Intent intent_editprofile = new Intent(this, EditProfile.class);
+            startActivity(intent_editprofile);
         }
 
+        if (btnReqChange == V)
+        {
+            Intent intent_waitForRequest = new Intent(this, WaitforRequest.class);
+            startActivity(intent_waitForRequest);
+        }
     }
 }
