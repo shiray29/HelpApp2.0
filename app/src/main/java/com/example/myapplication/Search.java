@@ -145,12 +145,6 @@ public class Search extends AppCompatActivity implements OnMapReadyCallback {
         this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(point));
     }
 
-    // מכאן והלאה - להוסיף POP-UP למתנדב - האם אתה בטוח שאתה רוצה לשלוח הודעה לקשיש הזה?
-    // ומשם - לשלוח SMS לקשיש עם פרטי המתנדב
-    // יש ליצור רשימת מרקרים לשימוש הonClick, וכדי לגשת לקשיש שנמצא על כל אחד מהם לחפש את המיקום שלו ברשימת המתנדבים.
-
-
-    // דוגמא
 
     public void sendSmsOld(Profile currentUser, Profile wantedOldie, String helpType)
     // מקבלת - פרופיל המתנדב והקשיש וסוג העזרה, שולחת לקשיש הודעה בהתאם

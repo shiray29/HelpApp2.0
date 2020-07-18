@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +24,7 @@ public class ChooseiconsActivity extends AppCompatActivity {
     private TextView textViewPick, textViewBuild, textViewCall, textViewClean, textViewCompany, textViewShop;
     private Button btnconfirmicon;
     private Profile profile;
+    int buildCount, companyCount, cleanCount, callCount, shopCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,42 +42,87 @@ public class ChooseiconsActivity extends AppCompatActivity {
         textViewShop = findViewById(R.id.textView_shop);
         textViewPick = findViewById(R.id.textView_pick);
         btnconfirmicon = findViewById(R.id.btn_confirmicon);
+        buildCount = 0;
+        callCount = 0;
+        cleanCount = 0;
+        companyCount = 0;
+        shopCount = 0;
         profile = new Profile();
 
     }
 
-    public void onClick(View V){
-        int buildCount = 0;
-        int callCount = 0;
-        int cleanCount = 0;
-        int companyCount = 0;
-        int shopCount = 0;
 
-        if (imageViewBuild==V) { buildCount++; }
-        if (imageViewCall==V) { callCount++; }
-        if (imageViewClean==V) { cleanCount++; }
-        if (imageViewCompany==V) { companyCount++; }
-        if (imageViewShop==V) { shopCount++; }
+
+    public void onClick(View V){
+
+        if (imageViewBuild==V) {
+            buildCount++;
+            if (buildCount % 2 == 1) {
+                Drawable highlight = getResources().getDrawable(R.drawable.highlight);
+                imageViewBuild.setBackground(highlight);
+            } else {
+                imageViewBuild.setBackground(null);
+            }
+        }
+        if (imageViewCall==V)
+        {
+            callCount++;
+            if (callCount % 2 == 1) {
+                Drawable highlight = getResources().getDrawable(R.drawable.highlight);
+                imageViewCall.setBackground(highlight);
+            } else {
+                imageViewCall.setBackground(null);
+            }
+        }
+        if (imageViewClean==V)
+        {
+            cleanCount++;
+            if (cleanCount % 2 == 1) {
+                Drawable highlight = getResources().getDrawable(R.drawable.highlight);
+                imageViewClean.setBackground(highlight);
+            } else {
+                imageViewClean.setBackground(null);
+            }
+        }
+        if (imageViewCompany==V)
+        {
+            companyCount++;
+            if (companyCount % 2 == 1) {
+                Drawable highlight = getResources().getDrawable(R.drawable.highlight);
+                imageViewCompany.setBackground(highlight);
+            } else {
+                imageViewCompany.setBackground(null);
+            }
+        }
+        if (imageViewShop==V)
+        {
+            shopCount++;
+            if (shopCount % 2 == 1) {
+                Drawable highlight = getResources().getDrawable(R.drawable.highlight);
+                imageViewShop.setBackground(highlight);
+            } else {
+                imageViewShop.setBackground(null);
+            }
+        }
 
 
         if (btnconfirmicon==V){
+            if ((buildCount%2==0) && (callCount%2==0) && (cleanCount%2==0) && (companyCount%2==0) && (shopCount%2==0))
+            {
+                btnconfirmicon.setError("אימייל חובה");
+                return;            
+            }
             DatabaseReference  ref = FirebaseDatabase.getInstance().getReference().
-                    child(FirebaseAuth.getInstance().getCurrentUser().getUid()); // להוסיף את השאר
-            final int finalBuildCount = buildCount;
-            final int finalShopCount = shopCount;
-            final int finalCompanyCount = companyCount;
-            final int finalCleanCount = cleanCount;
-            final int finalCallCount = callCount;
-            final int finalBuildCount1 = buildCount;
+                    child(FirebaseAuth.getInstance().getCurrentUser().getUid());
             ref.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     profile = dataSnapshot.getValue(Profile.class);
-                    if (finalBuildCount1 %2 == 1){ profile.setIsBuild(true);}
-                    if (finalCallCount %2 == 1){ profile.setCall(true);}
-                    if (finalCleanCount %2 == 1){ profile.setClean(true);}
-                    if (finalCompanyCount %2 == 1){ profile.setCompany(true);}
-                    if (finalShopCount %2 == 1){ profile.setShop(true);}
+                    if (buildCount %2 == 1){ profile.setIsBuild(true);}
+                    if (callCount %2 == 1){ profile.setCall(true);}
+                    if (cleanCount %2 == 1){ profile.setClean(true);}
+                    if (companyCount %2 == 1){ profile.setCompany(true);}
+                    if (shopCount %2 == 1){ profile.setShop(true);}
 
                 }
                 @Override
