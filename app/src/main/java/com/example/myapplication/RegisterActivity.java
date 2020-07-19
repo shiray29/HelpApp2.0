@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,13 +17,17 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -44,13 +49,16 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private Uri imageUri;
     private TextView textViewProfile, textViewId;
     private  boolean flag;
-    FusedLocationProviderClient fusedLocationProviderClient;
+    private FusedLocationProviderClient fusedLocationProviderClient;
+    private double longitude, latitude;
+
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FirebaseApp.initializeApp(this);
         setContentView(R.layout.activity_register);
         edittextFullname = findViewById(R.id.edittext_fullname);
         edittextCellnum = findViewById(R.id.edittext_cellnum);
@@ -64,12 +72,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         progressBar = findViewById(R.id.progress_bar);
         storageReference = FirebaseStorage.getInstance().getReference("users"); // this line defines reference to Firebase Storage in order to store jpg files
         databaseReference= FirebaseDatabase.getInstance().getReference("users"); // this line defines reference to Firebase Database in order to store users data
-        profile= new Profile();
         textViewId= findViewById(R.id.textview_insertidphoto);
         textViewProfile= findViewById(R.id.textview_insertprofile);
         setContentView(R.layout.activity_register);
         FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
     }
+
+
 
     private void openFile(){ //this function opens the cellphone's gallery using intents
         Intent intent= new Intent ();
@@ -77,6 +86,26 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent,1);
     }
+
+    public void getLocation() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        }
+        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+            @Override
+            public void onComplete(@NonNull Task<Location> task) {
+                Location location = task.getResult();
+                if (location != null) {
+                    longitude = location.getLongitude();
+                    latitude = location.getLatitude();
+
+                }
+            }
+        });
+    }
+
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){ //this function re-defines the imageUri
         super.onActivityResult(requestCode, resultCode, data);
@@ -159,7 +188,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
         if (btnConfirm == v){
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == (PackageManager.PERMISSION_GRANTED)){
-                profile.getLocation();
+                getLocation();
 
             }
             else {
@@ -183,8 +212,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 profile.setOld(false);
 
             }
-
-            profile.getLocation();
 
             String id= databaseReference.push().getKey();
             databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(profile); // creates a new user in Firebase Database

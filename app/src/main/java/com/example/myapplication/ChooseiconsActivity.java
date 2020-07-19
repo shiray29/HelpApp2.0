@@ -47,7 +47,6 @@ public class ChooseiconsActivity extends AppCompatActivity {
         cleanCount = 0;
         companyCount = 0;
         shopCount = 0;
-        profile = new Profile();
         imageViewBuild.setBackground(null); // cancels previous highlights
         imageViewCall.setBackground(null);
         imageViewClean.setBackground(null);
@@ -55,9 +54,8 @@ public class ChooseiconsActivity extends AppCompatActivity {
         imageViewShop.setBackground(null);
     }
 
-
-
     public void onClick(View V){
+
 
         if (imageViewBuild==V) { // highlights chosen help type, and cancel if clicked twice (for each help type)
             buildCount++;

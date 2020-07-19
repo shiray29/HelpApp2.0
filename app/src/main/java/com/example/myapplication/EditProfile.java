@@ -44,7 +44,7 @@ public class EditProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
-        fullName = findViewById(R.id.full_name);
+        fullName = findViewById(R.id.edit_fullname);
         cellNum = findViewById(R.id.cell_num);
         adress= findViewById(R.id.adress);
         password=findViewById(R.id.password);
@@ -54,6 +54,7 @@ public class EditProfile extends AppCompatActivity {
         progressBar = findViewById(R.id.progress_bar);
         textViewProfile= findViewById(R.id.textview_insertprofile2);
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){ //this function re-defines the imageUri
@@ -154,5 +155,6 @@ public class EditProfile extends AppCompatActivity {
 
 
 }
+
 
 

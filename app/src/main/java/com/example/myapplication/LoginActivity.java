@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -27,10 +28,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FirebaseApp.initializeApp(this);
         setContentView(R.layout.activity_login);
         firebaseAuth= FirebaseAuth.getInstance();
         btnLoginconfirm = findViewById(R.id.btn_loginconfirm);
@@ -38,9 +39,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         edittextLoginpassword = findViewById(R.id.edittext_logingpassword);
         btnLoginconfirm.setOnClickListener(this);
         databaseReference = FirebaseDatabase.getInstance().getReference("users"); // defines reference to Firebase Database, in order to authenticate users
-
-
-
     }
 
     @Override
