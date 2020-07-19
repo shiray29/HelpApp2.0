@@ -1,16 +1,12 @@
 package com.example.myapplication;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.SmsManager;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -68,7 +64,7 @@ public class Search extends AppCompatActivity implements OnMapReadyCallback {
         });
 
         int count = 0;
-        double tempLat;
+        double tempLat; // temporary variables for users loaction
         double tempLon;
 
         DatabaseReference  ref = FirebaseDatabase.getInstance().getReference().child(FirebaseAuth.getInstance()
@@ -85,7 +81,7 @@ public class Search extends AppCompatActivity implements OnMapReadyCallback {
             public void onCancelled(@NonNull DatabaseError databaseError) { }
         });
 
-        while (profileList.size() > count) { // מעלה את כל הקשישים במרחק של עד 30 ק"מ מהמשתמש
+        while (profileList.size() > count) { // shows on map every near by old users (<30km)
             if (profileList.get(count).isOld())
             {
              tempLat = profileList.get(count).getLatitude(); // hadas shall add
@@ -122,7 +118,7 @@ public class Search extends AppCompatActivity implements OnMapReadyCallback {
         }
     }
 
-    public double findDistance(double lat1, double lon1, double lat2, double lon2) // מחשבת מרחק בין 2 מיקומים בקורדינאטות
+    public double findDistance(double lat1, double lon1, double lat2, double lon2) // calculates distance between 2 coordinates
     {
         int R = 6371; // km
         double x = (lon2 - lon1) * Math.cos((lat1 + lat2) / 2);
@@ -131,10 +127,10 @@ public class Search extends AppCompatActivity implements OnMapReadyCallback {
         return distance;
     }
 
-    public void showMarker(double lat, double lon, int imageID, String title) { // מעלה את האייקון על המפה ומוסיפה את המרקר לרשימה
-        Marker m1 = googleMap.addMarker(new MarkerOptions().position(new LatLng(lat, lon))
-                .anchor(0.5f, 0.5f).title(title).snippet("").icon(BitmapDescriptorFactory.fromResource(imageID)));
-        markerList.add(m1);
+    public void showMarker(double lat, double lon, int imageID, String title) {
+        Marker m1 = googleMap.addMarker(new MarkerOptions().position(new LatLng(lat, lon)).anchor(0.5f, 0.5f)
+                .title(title).snippet("").icon(BitmapDescriptorFactory.fromResource(imageID))); // shows marker on map (specific icon and title)
+        markerList.add(m1); // adss it to the marker list
     }
 
     @Override
@@ -146,8 +142,7 @@ public class Search extends AppCompatActivity implements OnMapReadyCallback {
     }
 
 
-    public void sendSmsOld(Profile currentUser, Profile wantedOldie, String helpType)
-    // מקבלת - פרופיל המתנדב והקשיש וסוג העזרה, שולחת לקשיש הודעה בהתאם
+    public void sendSmsOld(Profile currentUser, Profile wantedOldie, String helpType) // send SMS to old user and announces the volunteer
     {
         String phoneNo = wantedOldie.getCellnum();
         String message = "שלום, קוראים לי " + currentUser.getName() + ", הכתובת שלי היא " + currentUser.getAdress() + "ואני רוצה לעזור לך ב"
@@ -158,7 +153,7 @@ public class Search extends AppCompatActivity implements OnMapReadyCallback {
                 Toast.LENGTH_LONG).show();
     }
 
-    public Profile oldUserFromLocation(LatLng location) // מקבלת מיקום ומחזירה את הקשיש שנמצא בו
+    public Profile oldUserFromLocation(LatLng location) // finds user's profile using their location
     {
         for (int j = 0; j<profileList.size(); j++){
             Profile tempProf = (Profile) profileList.get(j);
@@ -168,30 +163,22 @@ public class Search extends AppCompatActivity implements OnMapReadyCallback {
                 return tempProf;
             }
         }
-        return null;
+        return null; // if there's no user in this location
 
-    }
-
-    public void showPopup ()
-    {
-        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        PopupWindow pw = new PopupWindow(inflater.inflate(R.layout.popupsearch, null, false),
-                400,600, true);
-        pw.showAtLocation(this.findViewById(R.id.mapView), Gravity.CENTER, 0, 0); // האם להראות על המפה? TODO -
     }
 
     public void onClick(View V){
-        if (V == btnSearchedit) {
+        if (V == btnSearchedit) { // links user to edit profile
             Intent intent_login = new Intent(this, EditProfile.class);
             startActivity(intent_login);
         }
-        for (int i = 0; i < markerList.size(); i++)
+        for (int i = 0; i < markerList.size(); i++) // runs on the marker list
         {
-            if (markerList.get(i) ==V)
+            if (markerList.get(i) ==V) // when a specific marker is clicked...
             {
                 Dialog dialog = new Dialog(this);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setContentView(R.layout.popupsearch);
+                dialog.setContentView(R.layout.popupsearch); // shows the pop-up
                 Button accept = dialog.findViewById(R.id.btn_accept);
                 Button decline = dialog.findViewById(R.id.btn_decline);
                 accept.setOnClickListener((View.OnClickListener) this);

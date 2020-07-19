@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,10 +21,8 @@ public class WaitforRequest extends AppCompatActivity implements View.OnClickLis
     private Button btnReqChange;
     private TextView textViewExplain;
     private TextView textViewWaitforReq;
-    private ImageView imageViewWait;
     private Button btnEditWait;
     private Profile profile;
-
     public WaitforRequest(Button reqChange) {
        reqChange= findViewById(R.id.btn_reqchange);
     }
@@ -38,7 +35,6 @@ public class WaitforRequest extends AppCompatActivity implements View.OnClickLis
         btnEditWait = findViewById(R.id.btn_editwait);
         textViewWaitforReq = findViewById(R.id.textView_waitforreq);
         textViewExplain = findViewById(R.id.textView_explain);
-        imageViewWait = findViewById(R.id.imageViewWait);
     }
 
     @Override
